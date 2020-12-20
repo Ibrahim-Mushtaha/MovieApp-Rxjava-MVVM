@@ -17,6 +17,7 @@ import com.ix.ibrahim7.rxjavaapplication.model.pupular.Result
 import com.ix.ibrahim7.rxjavaapplication.ui.viewmodel.HomeViewModel
 import kotlinx.android.synthetic.main.fragment_all_list.*
 import util.Constant
+import util.Constant.MOVIE_ID
 import util.Resource
 
 
@@ -26,7 +27,7 @@ class AllListFragment : Fragment(),PupularAdapter.onClick {
 
 
     private val list_adapter by lazy {
-        PupularAdapter(requireActivity(),ArrayList(),3,this)
+        PupularAdapter(ArrayList(),3,this)
     }
 
     private val viewModel by lazy {
@@ -81,7 +82,14 @@ class AllListFragment : Fragment(),PupularAdapter.onClick {
 
 
     override fun onClickItem(content: Result, position: Int, type: Int) {
-
+        when(type){
+            1->{
+                val bundle = Bundle().apply {
+                    putInt(MOVIE_ID,content.id!!.toInt())
+                }
+                findNavController().navigate(R.id.action_allListFragment_to_detailsFragment,bundle)
+            }
+        }
     }
 
 

@@ -20,6 +20,7 @@ object Constant {
 
     const val API_KEY="28e048b6b84fcf21173939d6517a99ce"
     const val IMAGE_URL="https://image.tmdb.org/t/p/original"
+    const val MOVIE_ID="movie_id"
 
     fun getSharePref(context: Context) =
             context.getSharedPreferences("Share", Activity.MODE_PRIVATE)

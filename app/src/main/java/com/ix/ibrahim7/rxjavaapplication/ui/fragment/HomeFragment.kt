@@ -30,12 +30,12 @@ class HomeFragment : Fragment(),PupularAdapter.onClick {
     }
 
     private val pupular_adapter by lazy {
-        PupularAdapter(requireActivity(),ArrayList(),1,this)
+        PupularAdapter(ArrayList(),1,this)
     }
 
 
     private val upcoming_adapter by lazy {
-        PupularAdapter(requireActivity(),ArrayList(),2,this)
+        PupularAdapter(ArrayList(),2,this)
     }
 
     private val viewModel by lazy {

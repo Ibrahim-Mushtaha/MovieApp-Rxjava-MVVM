@@ -10,7 +10,7 @@ class RetrofitInstance {
 
 
     companion object {
-        private const val BASE_URL = "https://api.themoviedb.org/"
+        private const val BASE_URL = "https://api.themoviedb.org/3/"
 
         var api: Api? = null
 

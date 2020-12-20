@@ -28,7 +28,7 @@ import util.Constant.setImage
 
 
 class PupularAdapter(
-    var activity:Activity, var data: ArrayList<Result>,val type :Int, val itemclick: onClick
+  var data: ArrayList<Result>,val type :Int, val itemclick: onClick
 ) :
         RecyclerView.Adapter<PupularAdapter.MyViewHolder>() {
 

@@ -12,4 +12,8 @@ class ApiRepository {
         RetrofitInstance.api!!.getUpcoming(pageNumber = i)
 
 
+    fun getMovieDetails(movieID: Int) =
+        RetrofitInstance.api!!.getMovieDetails(movie_id = movieID)
+
+
 }
