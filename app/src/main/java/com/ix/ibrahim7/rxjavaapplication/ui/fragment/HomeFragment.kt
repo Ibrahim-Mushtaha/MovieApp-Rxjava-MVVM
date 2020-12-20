@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.ix.ibrahim7.rxjavaapplication.R
 import com.ix.ibrahim7.rxjavaapplication.adapter.ImageSliderAdapter
 import com.ix.ibrahim7.rxjavaapplication.adapter.PupularAdapter
@@ -59,19 +60,28 @@ class HomeFragment : Fragment(),PupularAdapter.onClick {
 
         setUpViewpager()
 
-        btn_click.setOnClickListener {
+
+        mBinding.btnClick.setOnClickListener {
             viewModel.getPupular()
         }
 
-        btn_click2.setOnClickListener {
+        mBinding.btnClick2.setOnClickListener {
             Log.e("eee allData",array.toString())
         }
 
-        pupular_list.apply {
+        mBinding.btnMorePupuler.setOnClickListener {
+            findNavController().navigate(R.id.action_homeFragment_to_allListFragment)
+        }
+
+        mBinding.btnMoreUpcoming.setOnClickListener {
+            findNavController().navigate(R.id.action_homeFragment_to_allListFragment)
+        }
+
+        mBinding.pupularList.apply {
             adapter = pupular_adapter
         }
 
-        upcoming_list.apply {
+        mBinding.upcomingList.apply {
             adapter = upcoming_adapter
         }
 
@@ -102,14 +112,14 @@ class HomeFragment : Fragment(),PupularAdapter.onClick {
                     upcoming_adapter.data.clear()
                     upcoming_adapter.data.addAll(it.data!!.results!!)
                     upcoming_adapter.notifyDataSetChanged()
-                    Constant.dialog.dismiss()
+                 //   Constant.dialog.dismiss()
                 }
                 is Resource.Error -> {
                     Log.e("eeee Error",it.message.toString())
-                    Constant.dialog.dismiss()
+                  //  Constant.dialog.dismiss()
                 }
                 is Resource.Loading -> {
-                    Constant.showDialog(requireActivity())
+                  //  Constant.showDialog(requireActivity())
                 }
             }
         })

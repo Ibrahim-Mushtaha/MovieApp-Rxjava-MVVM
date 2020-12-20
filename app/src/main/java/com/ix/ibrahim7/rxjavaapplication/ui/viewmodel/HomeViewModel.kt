@@ -28,17 +28,17 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
          .observeOn(AndroidSchedulers.mainThread())
          .subscribe(
               {c->
-                  page++
+               /*   page++
                   if (data == null){
-                      data = c
+                      data = c*/
                       dataPupularLiveData.postValue(Resource.Success(c))
-                      Log.e("eee data",data.toString())
-                  }else{
+                      Log.e("eee dataPupular",data.toString())
+/*                  }else{
                       val oldData = c
                       oldData!!.results!!.addAll(c.results!!)
                       dataPupularLiveData.postValue(Resource.Success(oldData))
-                      Log.e("eee data",oldData.toString())
-                  }
+                      Log.e("eee data2",oldData.toString())
+                  }*/
 
               },
               {x->
@@ -57,17 +57,17 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
                 {c->
-                    page++
+                 /*   page++
                     if (data == null){
-                        data = c
+                        data = c*/
                         dataUpcomingLiveData.postValue(Resource.Success(c))
-                        Log.e("eee data",data.toString())
-                    }else{
+                        Log.e("eee dataUpcoming",data.toString())
+                    /*}else{
                         val oldData = c
                         oldData!!.results!!.addAll(c.results!!)
                         dataUpcomingLiveData.postValue(Resource.Success(oldData))
                         Log.e("eee data",oldData.toString())
-                    }
+                    }*/
 
                 },
                 {x->

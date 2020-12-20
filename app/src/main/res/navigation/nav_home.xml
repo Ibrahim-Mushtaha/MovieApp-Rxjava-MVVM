@@ -9,5 +9,23 @@
         android:id="@+id/homeFragment"
         android:name="com.ix.ibrahim7.rxjavaapplication.ui.fragment.HomeFragment"
         android:label="fragment_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_homeFragment_to_allListFragment"
+            app:destination="@id/allListFragment"
+            app:enterAnim="@anim/slide_up"
+            app:exitAnim="@anim/slide_down"
+            app:popEnterAnim="@anim/slide_up"
+            app:popExitAnim="@anim/slide_down" />
+    </fragment>
+    <fragment
+        android:id="@+id/detailsFragment"
+        android:name="com.ix.ibrahim7.rxjavaapplication.ui.fragment.DetailsFragment"
+        android:label="fragment_details"
+        tools:layout="@layout/fragment_details" />
+    <fragment
+        android:id="@+id/allListFragment"
+        android:name="com.ix.ibrahim7.rxjavaapplication.ui.fragment.AllListFragment"
+        android:label="fragment_all_list"
+        tools:layout="@layout/fragment_all_list" />
 </navigation>
