@@ -3,7 +3,7 @@ package com.ix.ibrahim7.rxjavaapplication.model.review
 
 import com.google.gson.annotations.SerializedName
 
-data class Result(
+data class Content(
     @SerializedName("author")
     val author: String?,
     @SerializedName("author_details")

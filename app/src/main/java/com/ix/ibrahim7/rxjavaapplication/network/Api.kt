@@ -83,4 +83,17 @@ interface Api {
     ): Single<Movie>
 
 
+    @GET("search/movie")
+    fun getSearch(
+        @Query("page")
+        pageNumber: Int = 1,
+        @Query("language")
+        language: String = "en-US",
+        @Query("query")
+        query: String,
+        @Query("api_key")
+        apiKey: String = API_KEY
+    ): Single<Movie>
+
+
 }

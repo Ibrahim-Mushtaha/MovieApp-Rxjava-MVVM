@@ -1,15 +1,23 @@
 package com.ix.ibrahim7.rxjavaapplication.ui.viewmodel
 
 import android.app.Application
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
+import android.widget.EditText
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Observer
+import com.ix.ibrahim7.rxjavaapplication.model.Movie.Content
 import com.ix.ibrahim7.rxjavaapplication.model.Movie.Movie
 import com.ix.ibrahim7.rxjavaapplication.repository.ApiRepository
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
+import io.reactivex.rxjava3.core.ObservableOnSubscribe
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.schedulers.Schedulers
+import io.reactivex.rxjava3.schedulers.Schedulers.io
 import util.Resource
+import java.util.concurrent.TimeUnit
 
 class HomeViewModel(application: Application) : AndroidViewModel(application) {
 
@@ -19,6 +27,7 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
     private val compositeDisposable = CompositeDisposable()
     var data: Movie? = null
 
+    var arrayList = ArrayList<Movie>()
     var page = 1
 
     fun getPupular() {
@@ -57,22 +66,65 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
                 {c->
-                    page++
-                    if (data == null){
+                  /*  if (page == 1){
                         data = c
+                        arrayList.clear()
+                        arrayList.add(data!!)
                         dataUpcomingLiveData.postValue(Resource.Success(c))
                         Log.e("eee dataUpcoming",data.toString())
                     }else{
                         val oldData = c
-                        oldData!!.contents!!.addAll(c.contents!!)
-                        dataUpcomingLiveData.postValue(Resource.Success(oldData))
-                        Log.e("eee data",oldData.toString())
+                        data!!.contents!!.addAll(c.contents!!)
+                        arrayList.add(oldData)
+                        dataUpcomingLiveData.postValue(Resource.Success(data!!))
+                        Log.e("eee dataUpcoming1",oldData.toString())
+                    }*/
+                    page++
+                    if (data == null){
+                        data = c
+                     //   arrayList.clear()
+                     //   arrayList.add(data!!)
+                        dataUpcomingLiveData.postValue(Resource.Success(c))
+                        Log.e("eee dataUpcoming",data.toString())
+                    }else{
+                        val oldData = c
+                        data!!.contents!!.addAll(c.contents!!)
+                    //    arrayList.add(oldData)
+                        dataUpcomingLiveData.postValue(Resource.Success(data!!))
+                        Log.e("eee dataUpcoming1",oldData.toString())
                     }
 
                 },
                 {x->
                     dataUpcomingLiveData.postValue(Resource.Error(x.message.toString(),null))
                 })
+
+        compositeDisposable.add(observable)
+    }
+
+    fun getSearch(query:String) {
+        val observable =io.reactivex.rxjava3.core.Observable.create(ObservableOnSubscribe<String> { emitter ->
+            emitter.onNext(query)
+        })
+            .subscribeOn(io())
+            .doOnNext{c->
+                Log.e("eee", "upstream $c")
+            }
+            .map {}
+            .debounce(2,TimeUnit.SECONDS)
+            .distinctUntilChanged()
+            .subscribe{o->
+                repository.getSearch(query)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(
+                        { c ->
+                            dataUpcomingLiveData.postValue(Resource.Success(c))
+                        },{
+                            dataUpcomingLiveData.postValue(Resource.Error(it.message.toString(),null))
+                        })
+                Log.e("eee", "downstrem $o")
+            }
 
         compositeDisposable.add(observable)
     }

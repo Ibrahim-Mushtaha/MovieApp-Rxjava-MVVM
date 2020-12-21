@@ -12,7 +12,7 @@
     <color name="background_color">#F8F8F8</color>
     <color name="main_text">#333333</color>
     <color name="sub_text">#666666</color>
-    <color name="hint_text">#999999</color>
+    <color name="hint_text">#F3F3F3</color>
     <color name="orange">#FF6B03</color>
 
 </resources>

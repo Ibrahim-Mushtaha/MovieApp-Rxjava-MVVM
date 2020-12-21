@@ -27,6 +27,8 @@ class MovieAdapter(
 
     private var on_attach = true
     var DURATION: Long = 350
+
+
     class MyViewHolder(item: View) : RecyclerView.ViewHolder(item)
 
 
@@ -61,6 +63,8 @@ class MovieAdapter(
         val currentItem = data[position]
 
 
+
+
         holder.itemView.apply {
 
             if (type == 1) {
@@ -86,7 +90,7 @@ class MovieAdapter(
                 tv_description.text = currentItem.overview.toString()
                 tv_release_day.text = currentItem.releaseDate.toString()
             }else{
-              //  Constant.setAnimation(this, position,on_attach,DURATION)
+                Constant.setAnimation(this, position,on_attach,DURATION)
                 setImage(
                     context,
                     IMAGE_URL + currentItem.posterPath,
@@ -101,6 +105,8 @@ class MovieAdapter(
                 itemclick.onClickItem(data[position],position,1)
             }
         }
+
+
 
     }
 

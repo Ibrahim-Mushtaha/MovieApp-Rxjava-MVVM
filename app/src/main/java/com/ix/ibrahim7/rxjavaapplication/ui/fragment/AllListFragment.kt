@@ -65,7 +65,7 @@ class AllListFragment : Fragment(),MovieAdapter.onClick {
         mBinding.listItem.apply {
             adapter=list_adapter
             layoutAnimation = AnimationUtils.loadLayoutAnimation(requireContext(),R.anim.recyclerview_layout_animation)
-            //addOnScrollListener(onScrollListener)
+            addOnScrollListener(onScrollListener)
         }
 
         if (getType == 1) {
@@ -91,18 +91,21 @@ class AllListFragment : Fragment(),MovieAdapter.onClick {
             viewModel.dataUpcomingLiveData.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
                 when (it) {
                     is Resource.Success -> {
-                        Log.e("eee data", it.data.toString())
+                        isLoading = false
                         onScrollListener.totalCount = it.data!!.totalResults!!
-                        list_adapter.data.clear()
-                        list_adapter.data.addAll(it.data.contents!!)
-                        list_adapter.notifyDataSetChanged()
+                            list_adapter.data.clear()
+                            list_adapter.data.addAll(it.data.contents!!)
+                            list_adapter.notifyDataSetChanged()
+                        Log.e("eee dataUpcoming", it.data.toString())
                         Constant.dialog.dismiss()
                     }
                     is Resource.Error -> {
+                        isLoading = false
                         Log.e("eeee Error", it.message.toString())
                         Constant.dialog.dismiss()
                     }
                     is Resource.Loading -> {
+                        isLoading = true
                         Constant.showDialog(requireActivity())
                     }
                 }
@@ -113,7 +116,7 @@ class AllListFragment : Fragment(),MovieAdapter.onClick {
     }
 
     private val onScrollListener = OnScrollListener(isLoading, isLastPage, 0) {
-        viewModel.getUpcoming()
+        //viewModel.getUpcoming()
         isScrolling = false
     }
 
@@ -127,6 +130,7 @@ class AllListFragment : Fragment(),MovieAdapter.onClick {
             }
         }
     }
+
 
 
 }

@@ -259,6 +259,42 @@ Hours"
                     app:layout_constraintTop_toBottomOf="@+id/tv_recomindation"
                     tools:listitem="@layout/item_pupuler" />
 
+
+
+                <TextView
+                    android:id="@+id/tv_review"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="14sp"
+                    android:layout_marginTop="4dp"
+                    android:fontFamily="@font/cairo_semibold"
+                    android:gravity="start"
+                    android:maxLines="1"
+                    android:paddingStart="6dp"
+                    android:paddingEnd="8dp"
+                    android:text="Top Review"
+                    android:textColor="@color/main_text"
+                    android:textSize="18dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/recommendations_list" />
+
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/reviewslist"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginTop="12sp"
+                    android:minHeight="120dp"
+                    tools:itemCount="8"
+                    android:paddingBottom="10dp"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_review"
+                    tools:listitem="@layout/item_review" />
+
                 <androidx.constraintlayout.widget.Guideline
                     android:id="@+id/guideline3"
                     android:layout_width="wrap_content"

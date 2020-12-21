@@ -23,7 +23,7 @@ class OnScrollListener(
 
         val isAtLastItem = firstVisibleItemPosition + visibleItemCount >= totalItemCount
         val isNotAtBeginning = firstVisibleItemPosition >= 0
-        val isTotalMoreThenVisible = totalItemCount >=totalCount
+        val isTotalMoreThenVisible = totalItemCount >=40
 
         val shouldPaginate = isNotLoadingAndNotLastPage
                 && isAtLastItem
@@ -32,12 +32,15 @@ class OnScrollListener(
         if (shouldPaginate) {
             onComplete()
         }
+        Log.e("eee totalItemCount12" ,totalItemCount.toString())
+        Log.e("eee totalItemCount" ,shouldPaginate.toString())
     }
 
     override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
         super.onScrollStateChanged(recyclerView, newState)
         if (newState == AbsListView.OnScrollListener.SCROLL_STATE_TOUCH_SCROLL) {
-            onComplete()
+         onComplete()
+            Log.e("eee newState" ,newState.toString())
         }
     }
 

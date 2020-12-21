@@ -26,5 +26,8 @@ class ApiRepository {
     fun getSimillerMovie(movieID: Int,page: Int = 1) =
         RetrofitInstance.api!!.getSimillerMovie(movie_id = movieID,pageNumber = page)
 
+    fun getSearch(query: String) =
+        RetrofitInstance.api!!.getSearch(query = query)
+
 
 }

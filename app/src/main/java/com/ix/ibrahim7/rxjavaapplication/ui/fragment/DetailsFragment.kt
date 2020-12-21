@@ -13,6 +13,7 @@ import com.ix.ibrahim7.rxjavaapplication.R
 import com.ix.ibrahim7.rxjavaapplication.adapter.GenresAdapter
 import com.ix.ibrahim7.rxjavaapplication.adapter.MovieAdapter
 import com.ix.ibrahim7.rxjavaapplication.adapter.RecommendationsAdapter
+import com.ix.ibrahim7.rxjavaapplication.adapter.ReviewsAdapter
 import com.ix.ibrahim7.rxjavaapplication.databinding.FragmentDetailsBinding
 import com.ix.ibrahim7.rxjavaapplication.model.Movie.Content
 import com.ix.ibrahim7.rxjavaapplication.ui.viewmodel.DetailsViewModel
@@ -24,7 +25,7 @@ import util.Constant.setImage
 import util.Resource
 
 
-class DetailsFragment : Fragment(),MovieAdapter.onClick,RecommendationsAdapter.onClick {
+class DetailsFragment : Fragment(),MovieAdapter.onClick,RecommendationsAdapter.onClick,ReviewsAdapter.onClick {
 
     lateinit var mBinding: FragmentDetailsBinding
 
@@ -39,6 +40,10 @@ class DetailsFragment : Fragment(),MovieAdapter.onClick,RecommendationsAdapter.o
 
     private val movie_adapter by lazy {
         MovieAdapter(ArrayList(),1,this)
+    }
+
+    private val reviews_adapter by lazy {
+        ReviewsAdapter(ArrayList(),this)
     }
 
     private val recommendations_adapter by lazy {
@@ -85,6 +90,9 @@ class DetailsFragment : Fragment(),MovieAdapter.onClick,RecommendationsAdapter.o
             recommendations_list.apply {
                 adapter=recommendations_adapter
             }
+            reviewslist.apply {
+                adapter=reviews_adapter
+            }
         }
 
 
@@ -129,9 +137,11 @@ class DetailsFragment : Fragment(),MovieAdapter.onClick,RecommendationsAdapter.o
         viewModel.dataReviewsLiveData.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
             when (it) {
                 is Resource.Success -> {
-                    it.data?.let { movie ->
-                        mBinding.apply {
-                          Log.e("eee reviews",it.data.toString())
+                    it.data?.let { review ->
+                        if (review.contents!!.isNotEmpty()) {
+                            reviews_adapter.data.clear()
+                            reviews_adapter.data.addAll(review.contents)
+                            reviews_adapter.notifyDataSetChanged()
                         }
                     }
                 }
@@ -147,12 +157,10 @@ class DetailsFragment : Fragment(),MovieAdapter.onClick,RecommendationsAdapter.o
             when (it) {
                 is Resource.Success -> {
                     it.data?.let { movie ->
-                        mBinding.apply {
                             recommendations_adapter.data.clear()
                             recommendations_adapter.data.addAll(movie.contents!!)
                             recommendations_adapter.notifyDataSetChanged()
                           Log.e("eee Recommendetion",it.data.toString())
-                        }
                     }
                 }
                 is Resource.Error -> {
@@ -198,6 +206,16 @@ class DetailsFragment : Fragment(),MovieAdapter.onClick,RecommendationsAdapter.o
                 }
             }
         }
+    }
+
+
+
+    override fun onClickItem(
+        content: com.ix.ibrahim7.rxjavaapplication.model.review.Content,
+        position: Int,
+        type: Int
+    ) {
+
     }
 
 

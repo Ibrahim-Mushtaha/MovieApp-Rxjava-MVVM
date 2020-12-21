@@ -1,6 +1,8 @@
 package com.ix.ibrahim7.rxjavaapplication.ui.fragment
 
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -61,6 +63,22 @@ class HomeFragment : Fragment(),MovieAdapter.onClick {
 
         setUpViewpager()
 
+        mBinding.etxtSearch.addTextChangedListener(object :TextWatcher{
+            override fun afterTextChanged(s: Editable?) {
+
+            }
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+               if (s!!.isNotEmpty()){
+                   viewModel.getSearch(s.toString())
+               }
+            }
+
+        })
 
         mBinding.btnClick.setOnClickListener {
             viewModel.getPupular()
@@ -159,5 +177,6 @@ class HomeFragment : Fragment(),MovieAdapter.onClick {
             }
         }
     }
+
 
 }
