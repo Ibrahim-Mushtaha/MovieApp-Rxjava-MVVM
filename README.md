@@ -8,7 +8,6 @@ Movie App is a sample Android project using <a href="https://www.themoviedb.org/
 <ul>
 <li>100% Kotlin</li>
 <li>MVVM architecture</li>
-<li>Reactive pattern</li>
 <li>Android architecture components and Jetpack</li>
 <li>Single activity</li>
 <li>Rxjava</li>
