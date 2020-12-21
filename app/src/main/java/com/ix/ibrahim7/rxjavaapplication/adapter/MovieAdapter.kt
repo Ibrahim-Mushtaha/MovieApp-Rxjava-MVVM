@@ -1,20 +1,13 @@
 package com.ix.ibrahim7.rxjavaapplication.adapter
 
-import android.app.Activity
+import android.graphics.Color
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Filter
-import android.widget.Filterable
-import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
 import com.ix.ibrahim7.rxjavaapplication.R
-import com.ix.ibrahim7.rxjavaapplication.databinding.ItemPupulerBinding
-import com.ix.ibrahim7.rxjavaapplication.databinding.ItemUpcomingBinding
-import com.ix.ibrahim7.rxjavaapplication.model.pupular.Pupular
-import com.ix.ibrahim7.rxjavaapplication.model.pupular.Result
+import com.ix.ibrahim7.rxjavaapplication.model.Movie.Content
 import kotlinx.android.synthetic.main.item_all_list.view.*
 import kotlinx.android.synthetic.main.item_pupuler.view.*
 import kotlinx.android.synthetic.main.item_pupuler.view.tv_image
@@ -27,10 +20,10 @@ import util.Constant.IMAGE_URL
 import util.Constant.setImage
 
 
-class PupularAdapter(
-  var data: ArrayList<Result>,val type :Int, val itemclick: onClick
+class MovieAdapter(
+    var data: ArrayList<Content>, val type :Int, val itemclick: onClick
 ) :
-        RecyclerView.Adapter<PupularAdapter.MyViewHolder>() {
+        RecyclerView.Adapter<MovieAdapter.MyViewHolder>() {
 
     private var on_attach = true
     var DURATION: Long = 350
@@ -76,7 +69,7 @@ class PupularAdapter(
                     context,
                     IMAGE_URL + currentItem.posterPath,
                     tv_image,
-                    R.drawable.ic_launcher_background
+                    Color.TRANSPARENT
                 )
                 tv_title.text = currentItem.title
                 tv_price.text = currentItem.id.toString()
@@ -87,7 +80,7 @@ class PupularAdapter(
                     context,
                     IMAGE_URL + currentItem.posterPath,
                     tv_image_upcoming,
-                    R.drawable.ic_launcher_background
+                    Color.TRANSPARENT
                 )
                 tv_title.text = currentItem.title
                 tv_description.text = currentItem.overview.toString()
@@ -98,7 +91,7 @@ class PupularAdapter(
                     context,
                     IMAGE_URL + currentItem.posterPath,
                     tv_image_list,
-                    R.drawable.ic_launcher_background
+                    Color.TRANSPARENT
                 )
                 tv_title2.text = currentItem.title
                 tv_description2.text = currentItem.overview.toString()
@@ -123,7 +116,7 @@ class PupularAdapter(
     }
 
     interface onClick {
-        fun onClickItem(content: Result,position: Int, type: Int)
+        fun onClickItem(content: Content, position: Int, type: Int)
     }
 
 

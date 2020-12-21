@@ -71,6 +71,8 @@
                     android:layout_marginTop="32dp"
                     app:cardCornerRadius="8dp"
                     app:cardElevation="4dp"
+                    android:background="@color/background_color"
+                    android:backgroundTint="@color/background_color"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.5"
                     app:layout_constraintStart_toStartOf="parent"
@@ -190,6 +192,72 @@ Hours"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/tv_category"
                     tools:listitem="@layout/item_category" />
+
+
+                <TextView
+                    android:id="@+id/tv_Similar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="14sp"
+                    android:layout_marginTop="12sp"
+                    android:fontFamily="@font/cairo_semibold"
+                    android:gravity="start"
+                    android:maxLines="1"
+                    android:paddingStart="6dp"
+                    android:paddingEnd="8dp"
+                    android:text="Similar Movie"
+                    android:textColor="@color/main_text"
+                    android:textSize="18dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/genres_list" />
+
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/similar_list"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="12sp"
+                    android:minHeight="300dp"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_Similar"
+                    tools:listitem="@layout/item_pupuler" />
+
+
+                <TextView
+                    android:id="@+id/tv_recomindation"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="14sp"
+                    android:layout_marginTop="12sp"
+                    android:fontFamily="@font/cairo_semibold"
+                    android:gravity="start"
+                    android:maxLines="1"
+                    android:paddingStart="6dp"
+                    android:paddingEnd="8dp"
+                    android:text="Recommendations Movie"
+                    android:textColor="@color/main_text"
+                    android:textSize="18dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/similar_list" />
+
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recommendations_list"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="12sp"
+                    android:minHeight="300dp"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_recomindation"
+                    tools:listitem="@layout/item_pupuler" />
 
                 <androidx.constraintlayout.widget.Guideline
                     android:id="@+id/guideline3"

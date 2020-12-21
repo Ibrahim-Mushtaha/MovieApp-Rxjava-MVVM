@@ -1,9 +1,9 @@
-package com.ix.ibrahim7.rxjavaapplication.model.pupular
+package com.ix.ibrahim7.rxjavaapplication.model.Movie
 
 
 import com.google.gson.annotations.SerializedName
 
-data class Result(
+data class Content(
     @SerializedName("adult")
     val adult: Boolean?,
     @SerializedName("backdrop_path")

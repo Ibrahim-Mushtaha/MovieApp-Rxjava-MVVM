@@ -21,6 +21,9 @@ object Constant {
     const val API_KEY="28e048b6b84fcf21173939d6517a99ce"
     const val IMAGE_URL="https://image.tmdb.org/t/p/original"
     const val MOVIE_ID="movie_id"
+    const val REVIEWS="reviews"
+    const val RECOMINDATION="recommendations"
+    const val TYPE="type"
 
     fun getSharePref(context: Context) =
             context.getSharedPreferences("Share", Activity.MODE_PRIVATE)
@@ -43,6 +46,7 @@ object Constant {
             .asBitmap()
             .load(url)
             .placeholder(ivPaceHolder)
+            .error(R.drawable.ic_movie_placeholder)
             .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
             .into(iv)
     }

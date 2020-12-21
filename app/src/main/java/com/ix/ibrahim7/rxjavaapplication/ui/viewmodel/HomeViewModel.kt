@@ -4,7 +4,7 @@ import android.app.Application
 import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
-import com.ix.ibrahim7.rxjavaapplication.model.pupular.Pupular
+import com.ix.ibrahim7.rxjavaapplication.model.Movie.Movie
 import com.ix.ibrahim7.rxjavaapplication.repository.ApiRepository
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.disposables.CompositeDisposable
@@ -14,10 +14,10 @@ import util.Resource
 class HomeViewModel(application: Application) : AndroidViewModel(application) {
 
     private val repository = ApiRepository()
-    val dataPupularLiveData = MutableLiveData<Resource<Pupular>>()
-    val dataUpcomingLiveData = MutableLiveData<Resource<Pupular>>()
+    val dataPupularLiveData = MutableLiveData<Resource<Movie>>()
+    val dataUpcomingLiveData = MutableLiveData<Resource<Movie>>()
     private val compositeDisposable = CompositeDisposable()
-    var data: Pupular? = null
+    var data: Movie? = null
 
     var page = 1
 
@@ -57,22 +57,21 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
                 {c->
-                 /*   page++
+                    page++
                     if (data == null){
-                        data = c*/
+                        data = c
                         dataUpcomingLiveData.postValue(Resource.Success(c))
                         Log.e("eee dataUpcoming",data.toString())
-                    /*}else{
+                    }else{
                         val oldData = c
-                        oldData!!.results!!.addAll(c.results!!)
+                        oldData!!.contents!!.addAll(c.contents!!)
                         dataUpcomingLiveData.postValue(Resource.Success(oldData))
                         Log.e("eee data",oldData.toString())
-                    }*/
+                    }
 
                 },
                 {x->
                     dataUpcomingLiveData.postValue(Resource.Error(x.message.toString(),null))
-                    Log.e("eee onError", x?.message.toString())
                 })
 
         compositeDisposable.add(observable)

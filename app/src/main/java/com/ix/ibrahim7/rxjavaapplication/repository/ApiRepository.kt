@@ -5,15 +5,26 @@ import com.ix.ibrahim7.rxjavaapplication.network.RetrofitInstance
 
 class ApiRepository {
 
-     fun getPupular(i: Int) =
-        RetrofitInstance.api!!.getPupular(pageNumber = i)
+     fun getPupular(page: Int) =
+        RetrofitInstance.api!!.getPupular(pageNumber = page)
 
-    fun getUpcoming(i: Int) =
-        RetrofitInstance.api!!.getUpcoming(pageNumber = i)
+    fun getUpcoming(page: Int) =
+        RetrofitInstance.api!!.getUpcoming(pageNumber = page)
 
 
     fun getMovieDetails(movieID: Int) =
         RetrofitInstance.api!!.getMovieDetails(movie_id = movieID)
+
+
+    fun getMovieReviews(movieID: Int,page: Int = 1) =
+        RetrofitInstance.api!!.getMovieReviews(movie_id = movieID,pageNumber = page)
+
+    fun getMovieRecommendations(movieID: Int,page: Int = 1) =
+        RetrofitInstance.api!!.getMovieRecommendations(movie_id = movieID,pageNumber = page)
+
+
+    fun getSimillerMovie(movieID: Int,page: Int = 1) =
+        RetrofitInstance.api!!.getSimillerMovie(movie_id = movieID,pageNumber = page)
 
 
 }

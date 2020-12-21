@@ -10,17 +10,18 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.ix.ibrahim7.rxjavaapplication.R
 import com.ix.ibrahim7.rxjavaapplication.adapter.ImageSliderAdapter
-import com.ix.ibrahim7.rxjavaapplication.adapter.PupularAdapter
+import com.ix.ibrahim7.rxjavaapplication.adapter.MovieAdapter
 import com.ix.ibrahim7.rxjavaapplication.databinding.FragmentHomeBinding
-import com.ix.ibrahim7.rxjavaapplication.model.pupular.Result
+import com.ix.ibrahim7.rxjavaapplication.model.Movie.Content
 import com.ix.ibrahim7.rxjavaapplication.ui.viewmodel.HomeViewModel
 import kotlinx.android.synthetic.main.fragment_home.*
 import util.Constant
+import util.Constant.TYPE
 import util.Resource
 import util.ZoomAnimation
 
 
-class HomeFragment : Fragment(),PupularAdapter.onClick {
+class HomeFragment : Fragment(),MovieAdapter.onClick {
 
     lateinit var mBinding:FragmentHomeBinding
 
@@ -30,18 +31,18 @@ class HomeFragment : Fragment(),PupularAdapter.onClick {
     }
 
     private val pupular_adapter by lazy {
-        PupularAdapter(ArrayList(),1,this)
+        MovieAdapter(ArrayList(),1,this)
     }
 
 
     private val upcoming_adapter by lazy {
-        PupularAdapter(ArrayList(),2,this)
+        MovieAdapter(ArrayList(),2,this)
     }
 
     private val viewModel by lazy {
         ViewModelProvider(this)[HomeViewModel::class.java]
     }
-    val array = ArrayList<Result>()
+    val array = ArrayList<Content>()
 
     override fun onCreateView(
             inflater: LayoutInflater,
@@ -70,11 +71,17 @@ class HomeFragment : Fragment(),PupularAdapter.onClick {
         }
 
         mBinding.btnMorePupuler.setOnClickListener {
-            findNavController().navigate(R.id.action_homeFragment_to_allListFragment)
+            val bundle = Bundle().apply {
+                putInt(TYPE,1)
+            }
+            findNavController().navigate(R.id.action_homeFragment_to_allListFragment,bundle)
         }
 
         mBinding.btnMoreUpcoming.setOnClickListener {
-            findNavController().navigate(R.id.action_homeFragment_to_allListFragment)
+            val bundle = Bundle().apply {
+                putInt(TYPE,2)
+            }
+            findNavController().navigate(R.id.action_homeFragment_to_allListFragment,bundle)
         }
 
         mBinding.pupularList.apply {
@@ -90,7 +97,7 @@ class HomeFragment : Fragment(),PupularAdapter.onClick {
                 is Resource.Success -> {
                     Log.e("eee data",it.data.toString())
                     pupular_adapter.data.clear()
-                    pupular_adapter.data.addAll(it.data!!.results!!)
+                    pupular_adapter.data.addAll(it.data!!.contents!!)
                     pupular_adapter.notifyDataSetChanged()
                     Constant.dialog.dismiss()
                 }
@@ -110,7 +117,7 @@ class HomeFragment : Fragment(),PupularAdapter.onClick {
                 is Resource.Success -> {
                     Log.e("eee data",it.data.toString())
                     upcoming_adapter.data.clear()
-                    upcoming_adapter.data.addAll(it.data!!.results!!)
+                    upcoming_adapter.data.addAll(it.data!!.contents!!)
                     upcoming_adapter.notifyDataSetChanged()
                  //   Constant.dialog.dismiss()
                 }
@@ -142,8 +149,15 @@ class HomeFragment : Fragment(),PupularAdapter.onClick {
         }
     }
 
-    override fun onClickItem(content: Result, position: Int, type: Int) {
-
+    override fun onClickItem(content: Content, position: Int, type: Int) {
+        when(type){
+            1->{
+                val bundle = Bundle().apply {
+                    putInt(Constant.MOVIE_ID,content.id!!.toInt())
+                }
+                findNavController().navigate(R.id.action_homeFragment_to_detailsFragment,bundle)
+            }
+        }
     }
 
 }

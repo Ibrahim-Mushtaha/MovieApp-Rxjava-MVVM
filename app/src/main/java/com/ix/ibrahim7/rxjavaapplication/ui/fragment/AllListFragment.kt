@@ -10,29 +10,38 @@ import android.view.animation.AnimationUtils
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.ix.ibrahim7.rxjavaapplication.R
-import com.ix.ibrahim7.rxjavaapplication.adapter.PupularAdapter
+import com.ix.ibrahim7.rxjavaapplication.adapter.MovieAdapter
 import com.ix.ibrahim7.rxjavaapplication.databinding.FragmentAllListBinding
-import com.ix.ibrahim7.rxjavaapplication.databinding.FragmentHomeBinding
-import com.ix.ibrahim7.rxjavaapplication.model.pupular.Result
+import com.ix.ibrahim7.rxjavaapplication.model.Movie.Content
 import com.ix.ibrahim7.rxjavaapplication.ui.viewmodel.HomeViewModel
-import kotlinx.android.synthetic.main.fragment_all_list.*
 import util.Constant
 import util.Constant.MOVIE_ID
+import util.Constant.TYPE
+import util.OnScrollListener
 import util.Resource
 
 
-class AllListFragment : Fragment(),PupularAdapter.onClick {
+class AllListFragment : Fragment(),MovieAdapter.onClick {
 
     lateinit var mBinding: FragmentAllListBinding
 
 
     private val list_adapter by lazy {
-        PupularAdapter(ArrayList(),3,this)
+        MovieAdapter(ArrayList(),3,this)
     }
 
     private val viewModel by lazy {
         ViewModelProvider(this)[HomeViewModel::class.java]
     }
+
+    private val getType by lazy {
+        requireArguments().getInt(TYPE)
+    }
+
+
+    private var isLoading = false
+    private var isLastPage = false
+    private var isScrolling = false
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -56,32 +65,59 @@ class AllListFragment : Fragment(),PupularAdapter.onClick {
         mBinding.listItem.apply {
             adapter=list_adapter
             layoutAnimation = AnimationUtils.loadLayoutAnimation(requireContext(),R.anim.recyclerview_layout_animation)
+            //addOnScrollListener(onScrollListener)
+        }
+
+        if (getType == 1) {
+            viewModel.dataPupularLiveData.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
+                when (it) {
+                    is Resource.Success -> {
+                        Log.e("eee data", it.data.toString())
+                        list_adapter.data.clear()
+                        list_adapter.data.addAll(it.data!!.contents!!)
+                        list_adapter.notifyDataSetChanged()
+                        Constant.dialog.dismiss()
+                    }
+                    is Resource.Error -> {
+                        Log.e("eeee Error", it.message.toString())
+                        Constant.dialog.dismiss()
+                    }
+                    is Resource.Loading -> {
+                        Constant.showDialog(requireActivity())
+                    }
+                }
+            })
+        }else{
+            viewModel.dataUpcomingLiveData.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
+                when (it) {
+                    is Resource.Success -> {
+                        Log.e("eee data", it.data.toString())
+                        onScrollListener.totalCount = it.data!!.totalResults!!
+                        list_adapter.data.clear()
+                        list_adapter.data.addAll(it.data.contents!!)
+                        list_adapter.notifyDataSetChanged()
+                        Constant.dialog.dismiss()
+                    }
+                    is Resource.Error -> {
+                        Log.e("eeee Error", it.message.toString())
+                        Constant.dialog.dismiss()
+                    }
+                    is Resource.Loading -> {
+                        Constant.showDialog(requireActivity())
+                    }
+                }
+            })
         }
 
 
-        viewModel.dataPupularLiveData.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
-            when (it) {
-                is Resource.Success -> {
-                    Log.e("eee data",it.data.toString())
-                    list_adapter.data.clear()
-                    list_adapter.data.addAll(it.data!!.results!!)
-                    list_adapter.notifyDataSetChanged()
-                    Constant.dialog.dismiss()
-                }
-                is Resource.Error -> {
-                    Log.e("eeee Error",it.message.toString())
-                    Constant.dialog.dismiss()
-                }
-                is Resource.Loading -> {
-                    Constant.showDialog(requireActivity())
-                }
-            }
-        })
-
     }
 
+    private val onScrollListener = OnScrollListener(isLoading, isLastPage, 0) {
+        viewModel.getUpcoming()
+        isScrolling = false
+    }
 
-    override fun onClickItem(content: Result, position: Int, type: Int) {
+    override fun onClickItem(content: Content, position: Int, type: Int) {
         when(type){
             1->{
                 val bundle = Bundle().apply {

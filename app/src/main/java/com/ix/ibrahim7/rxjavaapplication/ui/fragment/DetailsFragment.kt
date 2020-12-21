@@ -6,14 +6,16 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.ix.ibrahim7.rxjavaapplication.R
 import com.ix.ibrahim7.rxjavaapplication.adapter.GenresAdapter
-import com.ix.ibrahim7.rxjavaapplication.databinding.FragmentAllListBinding
+import com.ix.ibrahim7.rxjavaapplication.adapter.MovieAdapter
+import com.ix.ibrahim7.rxjavaapplication.adapter.RecommendationsAdapter
 import com.ix.ibrahim7.rxjavaapplication.databinding.FragmentDetailsBinding
+import com.ix.ibrahim7.rxjavaapplication.model.Movie.Content
 import com.ix.ibrahim7.rxjavaapplication.ui.viewmodel.DetailsViewModel
-import com.ix.ibrahim7.rxjavaapplication.ui.viewmodel.HomeViewModel
 import kotlinx.android.synthetic.main.fragment_details.*
 import util.Constant
 import util.Constant.IMAGE_URL
@@ -22,7 +24,7 @@ import util.Constant.setImage
 import util.Resource
 
 
-class DetailsFragment : Fragment() {
+class DetailsFragment : Fragment(),MovieAdapter.onClick,RecommendationsAdapter.onClick {
 
     lateinit var mBinding: FragmentDetailsBinding
 
@@ -33,6 +35,14 @@ class DetailsFragment : Fragment() {
 
     private val genres_adapter by lazy {
         GenresAdapter(ArrayList())
+    }
+
+    private val movie_adapter by lazy {
+        MovieAdapter(ArrayList(),1,this)
+    }
+
+    private val recommendations_adapter by lazy {
+        RecommendationsAdapter(ArrayList(),this)
     }
 
     private val getMovieID by lazy {
@@ -60,41 +70,134 @@ class DetailsFragment : Fragment() {
 
 
         viewModel.getMovieDetails(getMovieID)
+        viewModel.getMovieReviews(getMovieID)
+        viewModel.getMovieRecommendations(getMovieID)
+        viewModel.getSimillerMovie(getMovieID)
 
-        mBinding.genresList.apply {
-            adapter=genres_adapter
+        mBinding.apply {
+            genresList.apply {
+                adapter=genres_adapter
+            }
+
+            similarList.apply {
+                adapter=movie_adapter
+            }
+            recommendations_list.apply {
+                adapter=recommendations_adapter
+            }
         }
+
+
 
         viewModel.dataDetailsLiveData.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
             when (it) {
                 is Resource.Success -> {
                     it.data?.let { movie ->
                         mBinding.apply {
+                            tvImage.startAnimation(
+                                AnimationUtils.loadAnimation(requireContext(),
+                                    R.anim.slide_up
+                                ))
                             setImage(
                                 requireContext(),
                                 IMAGE_URL + movie.posterPath,
                                 tvImage,
-                                R.drawable.ic_launcher_background
+                                R.color.background_color
                             )
                             genres_adapter.data.addAll(movie.genres!!)
                             genres_adapter.notifyDataSetChanged()
                             tvMovieName.text = movie.title
                             movieRating.rating = (movie.voteAverage!! / 2).toFloat()
                             tvMovieDescription.text = movie.overview
+                            tvMovieDescription.startAnimation(
+                                AnimationUtils.loadAnimation(requireContext(),
+                                    R.anim.slide_in_left
+                                ))
                         }
-                        Constant.dialog.dismiss()
                     }
                 }
                 is Resource.Error -> {
                     Log.e("eeee Error", it.message.toString())
-                    Constant.dialog.dismiss()
                 }
                 is Resource.Loading -> {
-                    Constant.showDialog(requireActivity())
                 }
             }
         })
 
+
+
+        viewModel.dataReviewsLiveData.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
+            when (it) {
+                is Resource.Success -> {
+                    it.data?.let { movie ->
+                        mBinding.apply {
+                          Log.e("eee reviews",it.data.toString())
+                        }
+                    }
+                }
+                is Resource.Error -> {
+                    Log.e("eeee Error", it.message.toString())
+                }
+                is Resource.Loading -> {
+                }
+            }
+        })
+
+        viewModel.dataRecommendetionLiveData.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
+            when (it) {
+                is Resource.Success -> {
+                    it.data?.let { movie ->
+                        mBinding.apply {
+                            recommendations_adapter.data.clear()
+                            recommendations_adapter.data.addAll(movie.contents!!)
+                            recommendations_adapter.notifyDataSetChanged()
+                          Log.e("eee Recommendetion",it.data.toString())
+                        }
+                    }
+                }
+                is Resource.Error -> {
+                    Log.e("eeee Error", it.message.toString())
+                }
+                is Resource.Loading -> {
+                }
+            }
+        })
+
+        viewModel.dataSimilerLiveData.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
+            when (it) {
+                is Resource.Success -> {
+                    it.data?.let { movie ->
+                            movie_adapter.data.clear()
+                            movie_adapter.data.addAll(movie.contents!!)
+                            movie_adapter.notifyDataSetChanged()
+                          Log.e("eee Similer",it.data.toString())
+                    }
+                }
+                is Resource.Error -> {
+                    Log.e("eeee Error", it.message.toString())
+                }
+                is Resource.Loading -> {
+                }
+            }
+        })
+
+
+    }
+
+
+    override fun onClickItem(content: Content, position: Int, type: Int) {
+        when(type){
+            1->{
+                when(type){
+                    1->{
+                        val bundle = Bundle().apply {
+                            putInt(MOVIE_ID,content.id!!.toInt())
+                        }
+                        findNavController().navigate(R.id.action_detailsFragment_self,bundle)
+                    }
+                }
+            }
+        }
     }
 
 

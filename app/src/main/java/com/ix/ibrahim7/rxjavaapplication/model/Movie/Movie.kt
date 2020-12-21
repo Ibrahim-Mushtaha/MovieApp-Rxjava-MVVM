@@ -1,13 +1,13 @@
-package com.ix.ibrahim7.rxjavaapplication.model.pupular
+package com.ix.ibrahim7.rxjavaapplication.model.Movie
 
 
 import com.google.gson.annotations.SerializedName
 
-data class Pupular(
+data class Movie(
     @SerializedName("page")
     val page: Int?,
     @SerializedName("results")
-    val results: ArrayList<Result>?,
+    val contents: ArrayList<Content>?,
     @SerializedName("total_pages")
     val totalPages: Int?,
     @SerializedName("total_results")
