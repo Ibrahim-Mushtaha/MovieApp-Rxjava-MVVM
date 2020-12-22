@@ -17,13 +17,13 @@ Movie App is a sample Android project using <a href="https://www.themoviedb.org/
 <div align="center">
    <table align="center" border="0">
   <tbody><tr>
-      <td><a target="_blank" rel="noopener noreferrer" href="https://github.com/Ibrahim-Mushtaha/MovieHunt/blob/master/app/src/main/res/drawable/Screenshot_20201222-001453_RxJava%20Application.jpg"><img width="360" src="https://github.com/Ibrahim-Mushtaha/MovieHunt/blob/master/app/src/main/res/drawable/Screenshot_20201222-001453_RxJava%20Application.jpg" style="max-width:20%;"></a>
+      <td><a target="_blank" rel="noopener noreferrer" href="https://github.com/Ibrahim-Mushtaha/MovieHunt/blob/master/app/src/main/res/drawable/ic_image1.jpg"><img width="360" src="https://github.com/Ibrahim-Mushtaha/MovieHunt/blob/master/app/src/main/res/drawable/ic_image1.jpg" style="max-width:20%;"></a>
     </td>
     <td>
-<a target="_blank" rel="noopener noreferrer" href="https://github.com/Ibrahim-Mushtaha/MovieHunt/blob/master/app/src/main/res/drawable/Screenshot_20201222-001504_RxJava%20Application.jpg"><img width="360" src="https://github.com/Ibrahim-Mushtaha/MovieHunt/blob/master/app/src/main/res/drawable/Screenshot_20201222-001504_RxJava%20Application.jpg" style="max-width:20%;"></a>
+<a target="_blank" rel="noopener noreferrer" href="https://github.com/Ibrahim-Mushtaha/MovieHunt/blob/master/app/src/main/res/drawable/ic_image2.jpg"><img width="360" src="https://github.com/Ibrahim-Mushtaha/MovieHunt/blob/master/app/src/main/res/drawable/ic_image2.jpg" style="max-width:20%;"></a>
   </td>
     <td>
-<a target="_blank" rel="noopener noreferrer" href="https://github.com/Ibrahim-Mushtaha/MovieHunt/blob/master/app/src/main/res/drawable/Screenshot_20201222-001513_RxJava%20Application.jpg"><img width="360" src="https://github.com/Ibrahim-Mushtaha/MovieHunt/blob/master/app/src/main/res/drawable/Screenshot_20201222-001513_RxJava%20Application.jpg" style="max-width:20%;"></a>
+<a target="_blank" rel="noopener noreferrer" href="https://github.com/Ibrahim-Mushtaha/MovieHunt/blob/master/app/src/main/res/drawable/ic_image3.jpg"><img width="360" src="https://github.com/Ibrahim-Mushtaha/MovieHunt/blob/master/app/src/main/res/drawable/ic_image3.jpg" style="max-width:20%;"></a>
   </td>
   </tr>
   </tbody></table>
