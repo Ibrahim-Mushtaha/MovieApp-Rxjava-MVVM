@@ -21,6 +21,7 @@ import com.ix.ibrahim7.rxjavaapplication.util.OnScrollListener
 import com.ix.ibrahim7.rxjavaapplication.util.Resource
 
 
+
 class AllListFragment : Fragment(),MovieAdapter.onClick {
 
     lateinit var mBinding: FragmentAllListBinding

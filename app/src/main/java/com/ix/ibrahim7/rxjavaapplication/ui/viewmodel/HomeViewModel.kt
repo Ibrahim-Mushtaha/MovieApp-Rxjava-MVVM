@@ -6,12 +6,12 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import com.ix.ibrahim7.rxjavaapplication.model.Movie.Movie
 import com.ix.ibrahim7.rxjavaapplication.repository.ApiRepository
+import com.ix.ibrahim7.rxjavaapplication.util.Resource
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.ObservableOnSubscribe
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.schedulers.Schedulers
 import io.reactivex.rxjava3.schedulers.Schedulers.io
-import com.ix.ibrahim7.rxjavaapplication.util.Resource
 import java.util.concurrent.TimeUnit
 
 class HomeViewModel(application: Application) : AndroidViewModel(application) {
@@ -106,7 +106,7 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
                 Log.e("eee", "upstream $c")
             }
             .map {}
-            .debounce(2,TimeUnit.SECONDS)
+            .debounce(2, TimeUnit.SECONDS)
             .distinctUntilChanged()
             .subscribe{o->
                 repository.getSearch(query)

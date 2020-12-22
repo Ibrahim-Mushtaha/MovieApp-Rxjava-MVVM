@@ -7,6 +7,7 @@ import com.ix.ibrahim7.rxjavaapplication.databinding.ActivityMainBinding
 import kotlinx.android.synthetic.main.activity_main.*
 import com.ix.ibrahim7.rxjavaapplication.util.Constant.setUpStatusBar
 
+
 class MainActivity : AppCompatActivity() {
 
 

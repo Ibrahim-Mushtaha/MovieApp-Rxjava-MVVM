@@ -8,10 +8,11 @@ import com.ix.ibrahim7.rxjavaapplication.model.Movie.Movie
 import com.ix.ibrahim7.rxjavaapplication.model.details.MovieDetails
 import com.ix.ibrahim7.rxjavaapplication.model.review.Reviews
 import com.ix.ibrahim7.rxjavaapplication.repository.ApiRepository
+import com.ix.ibrahim7.rxjavaapplication.util.Resource
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.schedulers.Schedulers
-import com.ix.ibrahim7.rxjavaapplication.util.Resource
+
 
 class DetailsViewModel(application: Application) : AndroidViewModel(application) {
 

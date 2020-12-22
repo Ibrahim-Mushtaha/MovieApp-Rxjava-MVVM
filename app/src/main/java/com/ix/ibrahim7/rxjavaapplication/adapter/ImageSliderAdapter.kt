@@ -13,20 +13,17 @@ import kotlinx.android.synthetic.main.item_image_slider.view.*
 class ImageSliderAdapter(
     val activity: Activity,var data: ArrayList<Int>
 ) :
-    RecyclerView.Adapter<ImageSliderAdapter.MyViewHolder>() {
+    RecyclerView.Adapter<ImageSliderAdapter.ViewHolder>() {
 
 
-    class MyViewHolder(val item: ItemImageSliderBinding) : RecyclerView.ViewHolder(item.root) {
+    class ViewHolder(item: ItemImageSliderBinding) : RecyclerView.ViewHolder(item.root)
 
-    }
-
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val itemView_layout: ItemImageSliderBinding = DataBindingUtil.inflate(
             LayoutInflater.from(parent.context),
             R.layout.item_image_slider, parent, false
         )
-        return MyViewHolder(
+        return ViewHolder(
             itemView_layout
         )
     }
@@ -36,7 +33,7 @@ class ImageSliderAdapter(
     }
 
 
-    override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
         holder.itemView.apply {
             tv_image_slider.setImageResource(data[position])

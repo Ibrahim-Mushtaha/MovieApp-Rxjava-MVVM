@@ -17,15 +17,15 @@ import com.ix.ibrahim7.rxjavaapplication.util.Constant.setImage
 class ReviewsAdapter(
     var data: ArrayList<Content>, val itemclick: onClick
 ) :
-        RecyclerView.Adapter<ReviewsAdapter.MyViewHolder>() {
+        RecyclerView.Adapter<ReviewsAdapter.ViewHolder>() {
 
     private var on_attach = true
     var DURATION: Long = 350
-    class MyViewHolder(item: View) : RecyclerView.ViewHolder(item)
+    class ViewHolder(item: View) : RecyclerView.ViewHolder(item)
 
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
-            return MyViewHolder(
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+            return ViewHolder(
                 LayoutInflater.from(parent.context)
                     .inflate(R.layout.item_review, parent, false)
             )
@@ -38,7 +38,7 @@ class ReviewsAdapter(
 
 
 
-    override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
         val currentItem = data[position]
 

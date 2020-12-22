@@ -24,31 +24,35 @@ import kotlinx.android.synthetic.main.item_upcoming.view.tv_release_day
 class MovieAdapter(
     var data: ArrayList<Content>, val type :Int, val itemclick: onClick
 ) :
-        RecyclerView.Adapter<MovieAdapter.MyViewHolder>() {
+        RecyclerView.Adapter<MovieAdapter.ViewHolder>() {
 
     private var on_attach = true
     var DURATION: Long = 350
 
 
-    class MyViewHolder(item: View) : RecyclerView.ViewHolder(item)
+    class ViewHolder(item: View) : RecyclerView.ViewHolder(item)
 
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
-        if (type == 1) {
-            return MyViewHolder(
-                LayoutInflater.from(parent.context)
-                    .inflate(R.layout.item_pupuler, parent, false)
-            )
-        }else if (type == 2){
-            return MyViewHolder(
-                LayoutInflater.from(parent.context)
-                    .inflate(R.layout.item_upcoming, parent, false)
-            )
-        }else{
-            return MyViewHolder(
-                LayoutInflater.from(parent.context)
-                    .inflate(R.layout.item_all_list, parent, false)
-            )
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        when (type) {
+            1 -> {
+                return ViewHolder(
+                    LayoutInflater.from(parent.context)
+                        .inflate(R.layout.item_pupuler, parent, false)
+                )
+            }
+            2 -> {
+                return ViewHolder(
+                    LayoutInflater.from(parent.context)
+                        .inflate(R.layout.item_upcoming, parent, false)
+                )
+            }
+            else -> {
+                return ViewHolder(
+                    LayoutInflater.from(parent.context)
+                        .inflate(R.layout.item_all_list, parent, false)
+                )
+            }
         }
     }
 
@@ -59,7 +63,7 @@ class MovieAdapter(
 
 
 
-    override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
         val currentItem = data[position]
 
@@ -68,40 +72,46 @@ class MovieAdapter(
 
         holder.itemView.apply {
 
-            if (type == 1) {
-                Constant.setAnimation(this, position,on_attach,DURATION)
-                setImage(
-                    context,
-                    IMAGE_URL + currentItem.posterPath,
-                    tv_image,
-                    Color.TRANSPARENT
-                )
-                tv_title.text = currentItem.title
-                tv_price.text = currentItem.id.toString()
+                when(type){
+                    1->{
+                        Constant.setAnimation(this, position,on_attach,DURATION)
+                        setImage(
+                            context,
+                            IMAGE_URL + currentItem.posterPath,
+                            tv_image,
+                            Color.TRANSPARENT
+                        )
+                        tv_title.text = currentItem.title
+                        tv_price.text = currentItem.id.toString()
+                    }
+                    2->{
+                        Constant.setAnimation(this, position,on_attach,DURATION)
+                        setImage(
+                            context,
+                            IMAGE_URL + currentItem.posterPath,
+                            tv_image_upcoming,
+                            Color.TRANSPARENT
+                        )
+                        tv_title.text = currentItem.title
+                        tv_description.text = currentItem.overview.toString()
+                        tv_release_day.text = currentItem.releaseDate.toString()
+                    }
+                    else ->{
+                        Constant.setAnimation(this, position,on_attach,DURATION)
+                        setImage(
+                            context,
+                            IMAGE_URL + currentItem.posterPath,
+                            tv_image_list,
+                            Color.TRANSPARENT
+                        )
+                        tv_title2.text = currentItem.title
+                        tv_description2.text = currentItem.overview.toString()
+                        tv_release_day2.text = currentItem.releaseDate.toString()
+                    }
+                }
 
-            }else if (type == 2){
-                Constant.setAnimation(this, position,on_attach,DURATION)
-                setImage(
-                    context,
-                    IMAGE_URL + currentItem.posterPath,
-                    tv_image_upcoming,
-                    Color.TRANSPARENT
-                )
-                tv_title.text = currentItem.title
-                tv_description.text = currentItem.overview.toString()
-                tv_release_day.text = currentItem.releaseDate.toString()
-            }else{
-                Constant.setAnimation(this, position,on_attach,DURATION)
-                setImage(
-                    context,
-                    IMAGE_URL + currentItem.posterPath,
-                    tv_image_list,
-                    Color.TRANSPARENT
-                )
-                tv_title2.text = currentItem.title
-                tv_description2.text = currentItem.overview.toString()
-                tv_release_day2.text = currentItem.releaseDate.toString()
-            }
+
+
             setOnClickListener {
                 itemclick.onClickItem(data[position],position,1)
             }

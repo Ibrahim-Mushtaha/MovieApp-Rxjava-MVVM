@@ -23,7 +23,6 @@ import com.ix.ibrahim7.rxjavaapplication.util.Constant.MOVIE_ID
 import com.ix.ibrahim7.rxjavaapplication.util.Constant.setImage
 import com.ix.ibrahim7.rxjavaapplication.util.Resource
 
-
 class DetailsFragment : Fragment(),MovieAdapter.onClick,RecommendationsAdapter.onClick,ReviewsAdapter.onClick {
 
     lateinit var mBinding: FragmentDetailsBinding
