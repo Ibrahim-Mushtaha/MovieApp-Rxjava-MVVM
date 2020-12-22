@@ -24,6 +24,8 @@ object Constant {
     const val REVIEWS="reviews"
     const val RECOMINDATION="recommendations"
     const val TYPE="type"
+    var on_attach = true
+    var DURATION: Long = 350
 
     fun getSharePref(context: Context) =
             context.getSharedPreferences("Share", Activity.MODE_PRIVATE)

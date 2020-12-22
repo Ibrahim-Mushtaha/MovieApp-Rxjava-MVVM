@@ -9,7 +9,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.ix.ibrahim7.rxjavaapplication.R
 import com.ix.ibrahim7.rxjavaapplication.model.Movie.Content
 import com.ix.ibrahim7.rxjavaapplication.util.Constant
+import com.ix.ibrahim7.rxjavaapplication.util.Constant.DURATION
 import com.ix.ibrahim7.rxjavaapplication.util.Constant.IMAGE_URL
+import com.ix.ibrahim7.rxjavaapplication.util.Constant.on_attach
 import com.ix.ibrahim7.rxjavaapplication.util.Constant.setImage
 import kotlinx.android.synthetic.main.item_all_list.view.*
 import kotlinx.android.synthetic.main.item_pupuler.view.*
@@ -25,10 +27,6 @@ class MovieAdapter(
     var data: ArrayList<Content>, val type :Int, val itemclick: onClick
 ) :
         RecyclerView.Adapter<MovieAdapter.ViewHolder>() {
-
-    private var on_attach = true
-    var DURATION: Long = 350
-
 
     class ViewHolder(item: View) : RecyclerView.ViewHolder(item)
 

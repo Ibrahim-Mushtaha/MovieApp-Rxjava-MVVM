@@ -11,14 +11,13 @@ import com.ix.ibrahim7.rxjavaapplication.databinding.ItemCategoryBinding
 import com.ix.ibrahim7.rxjavaapplication.model.details.Genre
 import kotlinx.android.synthetic.main.item_category.view.*
 import com.ix.ibrahim7.rxjavaapplication.util.Constant
+import com.ix.ibrahim7.rxjavaapplication.util.Constant.DURATION
+import com.ix.ibrahim7.rxjavaapplication.util.Constant.on_attach
 
-class GenresAdapter(
-    var data: ArrayList<Genre>
-) :
+class GenresAdapter(var data: ArrayList<Genre>) :
     RecyclerView.Adapter<GenresAdapter.ViewHolder>() {
 
-    private var on_attach = true
-    var DURATION: Long = 350
+
     class ViewHolder(item: ItemCategoryBinding) : RecyclerView.ViewHolder(item.root)
 
 

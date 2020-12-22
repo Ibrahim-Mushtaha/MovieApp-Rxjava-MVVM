@@ -29,7 +29,7 @@ class HomeFragment : Fragment(),MovieAdapter.onClick {
 
 
     private val image_adapter by lazy {
-        ImageSliderAdapter(requireActivity(),ArrayList())
+        ImageSliderAdapter(ArrayList())
     }
 
     private val pupular_adapter by lazy {

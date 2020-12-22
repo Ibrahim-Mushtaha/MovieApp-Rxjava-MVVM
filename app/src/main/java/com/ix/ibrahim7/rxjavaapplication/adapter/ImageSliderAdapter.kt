@@ -11,7 +11,7 @@ import kotlinx.android.synthetic.main.item_image_slider.view.*
 
 
 class ImageSliderAdapter(
-    val activity: Activity,var data: ArrayList<Int>
+    var data: ArrayList<Int>
 ) :
     RecyclerView.Adapter<ImageSliderAdapter.ViewHolder>() {
 
@@ -38,8 +38,6 @@ class ImageSliderAdapter(
         holder.itemView.apply {
             tv_image_slider.setImageResource(data[position])
         }
-
-
     }
 
 

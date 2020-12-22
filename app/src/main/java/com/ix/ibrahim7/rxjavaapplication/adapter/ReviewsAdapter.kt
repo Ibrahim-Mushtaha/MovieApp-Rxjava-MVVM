@@ -10,32 +10,30 @@ import com.ix.ibrahim7.rxjavaapplication.R
 import com.ix.ibrahim7.rxjavaapplication.model.review.Content
 import kotlinx.android.synthetic.main.item_review.view.*
 import com.ix.ibrahim7.rxjavaapplication.util.Constant
+import com.ix.ibrahim7.rxjavaapplication.util.Constant.DURATION
 import com.ix.ibrahim7.rxjavaapplication.util.Constant.IMAGE_URL
+import com.ix.ibrahim7.rxjavaapplication.util.Constant.on_attach
 import com.ix.ibrahim7.rxjavaapplication.util.Constant.setImage
 
 
 class ReviewsAdapter(
     var data: ArrayList<Content>, val itemclick: onClick
 ) :
-        RecyclerView.Adapter<ReviewsAdapter.ViewHolder>() {
+    RecyclerView.Adapter<ReviewsAdapter.ViewHolder>() {
 
-    private var on_attach = true
-    var DURATION: Long = 350
     class ViewHolder(item: View) : RecyclerView.ViewHolder(item)
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-            return ViewHolder(
-                LayoutInflater.from(parent.context)
-                    .inflate(R.layout.item_review, parent, false)
-            )
+        return ViewHolder(
+            LayoutInflater.from(parent.context)
+                .inflate(R.layout.item_review, parent, false)
+        )
     }
 
     override fun getItemCount(): Int {
         return data.size
     }
-
-
 
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
@@ -45,23 +43,22 @@ class ReviewsAdapter(
 
         holder.itemView.apply {
 
-                Constant.setAnimation(this, position,on_attach,DURATION)
-                setImage(
-                    context,
-                    IMAGE_URL + currentItem.authorDetails!!.avatarPath,
-                    tv_image_user,
-                    Color.TRANSPARENT
-                )
+            Constant.setAnimation(this, position, on_attach, DURATION)
+            setImage(
+                context,
+                IMAGE_URL + currentItem.authorDetails!!.avatarPath,
+                tv_image_user,
+                Color.TRANSPARENT
+            )
             tv_review_name.text = currentItem.authorDetails.name
             tv_review_note.text = currentItem.content
-            tvrating.rating = if(currentItem.authorDetails.rating!! == 0){
-                0f
-            }else{
-                (currentItem.authorDetails.rating /2).toFloat()
-            }
+            tvrating.rating = if (currentItem.authorDetails.rating!! == 0) 0f
+            else
+                (currentItem.authorDetails.rating / 2).toFloat()
+
 
             setOnClickListener {
-                itemclick.onClickItem(data[position],position,1)
+                itemclick.onClickItem(data[position], position, 1)
             }
         }
 
@@ -81,8 +78,6 @@ class ReviewsAdapter(
     interface onClick {
         fun onClickItem(content: Content, position: Int, type: Int)
     }
-
-
 
 
 }
