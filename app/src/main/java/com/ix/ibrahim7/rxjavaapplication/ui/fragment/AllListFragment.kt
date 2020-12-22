@@ -69,49 +69,57 @@ class AllListFragment : Fragment(),MovieAdapter.onClick {
             addOnScrollListener(onScrollListener)
         }
 
-        if (getType == 1) {
-            viewModel.dataPupularLiveData.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
-                when (it) {
-                    is Resource.Success -> {
-                        Log.e("eee data", it.data.toString())
-                        list_adapter.data.clear()
-                        list_adapter.data.addAll(it.data!!.contents!!)
-                        list_adapter.notifyDataSetChanged()
-                        Constant.dialog.dismiss()
-                    }
-                    is Resource.Error -> {
-                        Log.e("eeee Error", it.message.toString())
-                        Constant.dialog.dismiss()
-                    }
-                    is Resource.Loading -> {
-                        Constant.showDialog(requireActivity())
-                    }
-                }
-            })
-        }else{
-            viewModel.dataUpcomingLiveData.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
-                when (it) {
-                    is Resource.Success -> {
-                        isLoading = false
-                        onScrollListener.totalCount = it.data!!.totalResults!!
-                            list_adapter.data.clear()
-                            list_adapter.data.addAll(it.data.contents!!)
-                            list_adapter.notifyDataSetChanged()
-                        Log.e("eee dataUpcoming", it.data.toString())
-                        Constant.dialog.dismiss()
-                    }
-                    is Resource.Error -> {
-                        isLoading = false
-                        Log.e("eeee Error", it.message.toString())
-                        Constant.dialog.dismiss()
-                    }
-                    is Resource.Loading -> {
-                        isLoading = true
-                        Constant.showDialog(requireActivity())
-                    }
-                }
-            })
-        }
+      when(getType) {
+          1 -> {
+              viewModel.dataPupularLiveData.observe(
+                  viewLifecycleOwner,
+                  androidx.lifecycle.Observer {
+                      when (it) {
+                          is Resource.Success -> {
+                              Log.e("eee data", it.data.toString())
+                              list_adapter.data.clear()
+                              list_adapter.data.addAll(it.data!!.contents!!)
+                              list_adapter.notifyDataSetChanged()
+                              Constant.dialog.dismiss()
+                          }
+                          is Resource.Error -> {
+                              Log.e("eeee Error", it.message.toString())
+                              Constant.dialog.dismiss()
+                          }
+                          is Resource.Loading -> {
+                              Constant.showDialog(requireActivity())
+                          }
+                      }
+                  })
+          }
+          2 -> {
+              viewModel.dataUpcomingLiveData.observe(
+                  viewLifecycleOwner,
+                  androidx.lifecycle.Observer {
+                      when (it) {
+                          is Resource.Success -> {
+                              isLoading = false
+                              onScrollListener.totalCount = it.data!!.totalResults!!
+                              list_adapter.data.clear()
+                              list_adapter.data.addAll(it.data.contents!!)
+                              list_adapter.notifyDataSetChanged()
+                              Log.e("eee dataUpcoming", it.data.toString())
+                              Constant.dialog.dismiss()
+                          }
+                          is Resource.Error -> {
+                              isLoading = false
+                              Log.e("eeee Error", it.message.toString())
+                              Constant.dialog.dismiss()
+                          }
+                          is Resource.Loading -> {
+                              isLoading = true
+                              Constant.showDialog(requireActivity())
+                          }
+                      }
+                  })
+          }
+      }
+
 
 
     }
